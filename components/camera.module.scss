@@ -1,0 +1,282 @@
+// Variables
+$white: #ffffff;
+$black: #000000;
+$gray-300: #d1d5db;
+$gray-600: #4b5563;
+$gray-700: #374151;
+$green-500: #22c55e;
+$green-600: #16a34a;
+$green-700: #15803d;
+$red-500: #ef4444;
+
+// Camera Controls
+.cameraControls {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+
+  .switchButton {
+    border-radius: 9999px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: $white;
+    border-color: $white;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+    }
+  }
+}
+
+// Camera Info
+.cameraInfo {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+
+  .cameraInfoBadge {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: $white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+  }
+}
+
+// Status Overlay
+.statusOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.75);
+
+  .statusContent {
+    color: $white;
+    text-align: center;
+    padding: 1.5rem;
+    max-width: 28rem;
+
+    .statusSpinner {
+      width: 3rem;
+      height: 3rem;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    .statusTitle {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .statusDescription {
+      font-size: 0.875rem;
+      color: rgba(209, 213, 219, 1);
+      margin-bottom: 1rem;
+    }
+
+    .errorButtons,
+    .normalButtons {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .retryButton,
+    .switchCameraButton,
+    .forceReadyButton,
+    .uploadAltButton {
+      color: $white;
+      border-color: $white;
+      background: transparent;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+
+    .uploadButton {
+      background-color: $green-600;
+      color: $white;
+
+      &:hover {
+        background-color: $green-700;
+      }
+    }
+  }
+}
+
+// Capture Button
+.captureButtonContainer {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+
+  .captureButton {
+    border-radius: 9999px;
+    width: 4rem;
+    height: 4rem;
+    background-color: $white;
+    color: $black;
+
+    &:hover {
+      background-color: rgba(243, 244, 246, 1);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+    }
+
+    .captureSpinner,
+    .captureIcon {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    .captureSpinner {
+      animation: spin 1s linear infinite;
+    }
+  }
+}
+
+// Ready Indicator
+.readyIndicator {
+  position: absolute;
+  top: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
+
+  .readyBadge {
+    background-color: $green-500;
+    color: $white;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+}
+
+// Error Display
+.errorDisplay {
+  position: absolute;
+  bottom: 8rem;
+  left: 1rem;
+  right: 1rem;
+
+  .errorContent {
+    background-color: $red-500;
+    color: $white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    text-align: center;
+
+    .errorMessage {
+      margin-bottom: 0.5rem;
+    }
+
+    .errorActions {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      .errorRetryButton,
+      .errorSwitchButton {
+        color: $white;
+        border-color: $white;
+        background: transparent;
+        font-size: 0.875rem;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.1);
+        }
+      }
+
+      .errorUploadButton {
+        background-color: $green-600;
+        color: $white;
+        font-size: 0.875rem;
+
+        &:hover {
+          background-color: $green-700;
+        }
+      }
+    }
+  }
+}
+
+// Debug Overlay
+.debugToggle {
+  position: absolute;
+  top: 4rem;
+  right: 1rem;
+
+  .debugButton {
+    color: $white;
+    border-color: $white;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+  }
+}
+
+.debugOverlay {
+  position: absolute;
+  top: 4rem;
+  right: 1rem;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: $white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  max-width: 18rem;
+
+  .debugHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+
+    .debugTitle {
+      font-weight: bold;
+    }
+
+    .debugClose {
+      color: $white;
+      padding: 0.25rem;
+      height: auto;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+
+  .debugInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}
+
+// Common styles
+.buttonIcon {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.25rem;
+}
+
+// Animations
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

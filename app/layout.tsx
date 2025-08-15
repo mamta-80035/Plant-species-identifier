@@ -1,14 +1,15 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
-import "./globals.css"
+import "./globals.css" // globals.css file is imported here
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "PlantID - AI Plant Identification",
-  description: "Identify plant species instantly using advanced AI technology",
-    generator: 'v0.dev'
+  title: "Plant Species Identifier - AI-Powered Plant Recognition",
+  description:
+    "Identify any plant species instantly using advanced AI technology. Discover detailed information about plants with just a photo.",
+    generator: 'v0.app'
 }
 
 export default function RootLayout({

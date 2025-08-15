@@ -1,13 +1,274 @@
 "use client"
 
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { ExternalLink, RotateCcw, Home } from "lucide-react"
+import { ExternalLink, RotateCcw, Home, ChevronRight, X } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { Drawer } from "vaul"
 
+// Plant Details Drawer Component
+interface PlantDetailsDrawerProps {
+  isOpen: boolean
+  onClose: () => void
+  plant: any
+  selectedImage: string
+}
+
+export function PlantDetailsDrawer({ isOpen, onClose, plant, selectedImage }: PlantDetailsDrawerProps) {
+  if (!plant) return null
+
+  return (
+    <Drawer.Root open={isOpen} onOpenChange={onClose}>
+      <Drawer.Portal>
+        <Drawer.Overlay className="fixed inset-0 bg-black/40" />
+        <Drawer.Content className="bg-white flex flex-col rounded-t-[10px] h-[85%] mt-24 fixed bottom-0 left-0 right-0">
+          <div className="p-4 bg-white rounded-t-[10px] flex-1 overflow-auto">
+            <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-gray-300 mb-8" />
+
+            {/* Header */}
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex-1">
+                <h2 className="text-2xl font-bold text-gray-800">{plant.name}</h2>
+                {plant.details?.common_names && plant.details.common_names.length > 0 && (
+                  <p className="text-gray-600 mt-1">
+                    <strong>Common names:</strong> {plant.details.common_names.join(", ")}
+                  </p>
+                )}
+              </div>
+              <Button onClick={onClose} variant="ghost" size="sm" className="rounded-full h-8 w-8 p-0">
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+
+            {/* Plant Image */}
+            <div className="mb-6">
+              <Image
+                src={selectedImage || "/placeholder.svg"}
+                alt={plant.name}
+                width={400}
+                height={300}
+                className="rounded-lg mx-auto object-cover w-full max-w-sm"
+              />
+            </div>
+
+            {/* Confidence Score */}
+            <div className="mb-6 text-center">
+              <span className="bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium">
+                {Math.round(plant.probability * 100)}% match
+              </span>
+            </div>
+
+            {/* Content Sections */}
+            <div className="space-y-6">
+              {/* Taxonomy */}
+              {plant.details?.taxonomy && (
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <h4 className="font-semibold mb-3">Scientific Classification</h4>
+                  <div className="grid grid-cols-2 gap-3 text-sm">
+                    <div>
+                      <strong>Kingdom:</strong> {plant.details.taxonomy.kingdom}
+                    </div>
+                    <div>
+                      <strong>Family:</strong> {plant.details.taxonomy.family}
+                    </div>
+                    <div>
+                      <strong>Genus:</strong> {plant.details.taxonomy.genus}
+                    </div>
+                    <div>
+                      <strong>Class:</strong> {plant.details.taxonomy.class}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Description */}
+              {plant.details?.description?.value && (
+                <div>
+                  <h4 className="font-semibold mb-3">Description</h4>
+                  <p className="text-gray-700 text-sm leading-relaxed">{plant.details.description.value}</p>
+                </div>
+              )}
+
+              {/* Care Information Grid */}
+              <div className="grid grid-cols-1 gap-4">
+                {plant.details?.best_watering && (
+                  <div className="bg-blue-50 p-4 rounded-lg">
+                    <h4 className="font-semibold mb-2 text-blue-800">💧 Watering</h4>
+                    <p className="text-sm text-blue-700">{plant.details.best_watering}</p>
+                  </div>
+                )}
+
+                {plant.details?.best_light_condition && (
+                  <div className="bg-yellow-50 p-4 rounded-lg">
+                    <h4 className="font-semibold mb-2 text-yellow-800">☀️ Light Requirements</h4>
+                    <p className="text-sm text-yellow-700">{plant.details.best_light_condition}</p>
+                  </div>
+                )}
+
+                {plant.details?.best_soil_type && (
+                  <div className="bg-amber-50 p-4 rounded-lg">
+                    <h4 className="font-semibold mb-2 text-amber-800">🌱 Soil Requirements</h4>
+                    <p className="text-sm text-amber-700">{plant.details.best_soil_type}</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Edible Parts */}
+              {plant.details?.edible_parts && plant.details.edible_parts.length > 0 && (
+                <div className="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-400">
+                  <h4 className="font-semibold mb-3 text-orange-800">🍃 Edible Parts</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {plant.details.edible_parts.map((part: string, partIndex: number) => (
+                      <span key={partIndex} className="bg-orange-200 text-orange-800 px-3 py-1 rounded-full text-sm">
+                        {part}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Toxicity Warning */}
+              {plant.details?.toxicity && (
+                <div className="bg-red-50 p-4 rounded-lg border-l-4 border-red-400">
+                  <h4 className="font-semibold mb-2 text-red-800">⚠️ Toxicity Information</h4>
+                  <p className="text-sm text-red-700 leading-relaxed">{plant.details.toxicity}</p>
+                </div>
+              )}
+
+              {/* External Links */}
+              <div className="flex flex-wrap gap-3 pt-4">
+                {plant.details?.url && (
+                  <a
+                    href={plant.details.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-blue-600 hover:text-blue-800 text-sm bg-blue-50 px-4 py-2 rounded-lg hover:bg-blue-100 transition-colors"
+                  >
+                    📖 Wikipedia
+                  </a>
+                )}
+                {plant.details?.gbif_id && (
+                  <a
+                    href={`https://www.gbif.org/species/${plant.details.gbif_id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-red-600 hover:text-red-800 text-sm bg-red-50 px-4 py-2 rounded-lg hover:bg-red-100 transition-colors"
+                  >
+                    🔬 GBIF Database
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        </Drawer.Content>
+      </Drawer.Portal>
+    </Drawer.Root>
+  )
+}
+
+// Plant Results Mobile Component
+interface PlantResultsMobileProps {
+  selectedImage: string
+  result: any
+  onResetIdentification: () => void
+}
+
+export function PlantResultsMobile({ selectedImage, result, onResetIdentification }: PlantResultsMobileProps) {
+  const [selectedPlant, setSelectedPlant] = useState<any>(null)
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+
+  const handlePlantSelect = (plant: any) => {
+    setSelectedPlant(plant)
+    setIsDrawerOpen(true)
+  }
+
+  return (
+    <>
+      <div className="w-full">
+        <Card className="mx-4 md:mx-auto md:max-w-2xl border-0 shadow-xl bg-white/90 backdrop-blur-sm">
+          <CardHeader>
+              <CardTitle className="text-center text-xl font-bold">🌿 Plant Identified!</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="mb-6">
+              <Image
+                src={selectedImage || "/placeholder.svg"}
+                alt="Identified plant"
+                width={400}
+                height={300}
+                className="rounded-lg mx-auto object-cover"
+              />
+            </div>
+
+            {/* Plant Confidence */}
+            {result.result?.is_plant && (
+              <div className="mb-4 text-center">
+                <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">
+                  {Math.round(result.result.is_plant.probability * 100)}% confident this is a plant
+                </span>
+              </div>
+            )}
+
+            {/* Plant Suggestions List */}
+            {result.result?.classification?.suggestions && result.result.classification.suggestions.length > 0 && (
+              <div className="space-y-3 mb-6">
+                <h3 className="font-semibold text-lg">Possible Matches:</h3>
+                {result.result.classification.suggestions.slice(0, 5).map((suggestion: any, index: number) => (
+                  <div
+                    key={index}
+                    className="border rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition-colors"
+                    onClick={() => handlePlantSelect(suggestion)}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <h4 className="font-semibold text-gray-800">{suggestion.name}</h4>
+                        {suggestion.details?.common_names && suggestion.details.common_names.length > 0 && (
+                          <p className="text-sm text-gray-600 mt-1">
+                            {suggestion.details.common_names.slice(0, 2).join(", ")}
+                          </p>
+                        )}
+                        <div className="mt-2">
+                          <span className="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">
+                            {Math.round(suggestion.probability * 100)}% match
+                          </span>
+                        </div>
+                      </div>
+                      <ChevronRight className="h-5 w-5 text-gray-400" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div className="text-center pt-6 border-t">
+              <div className="flex flex-col gap-3">
+                <Button onClick={onResetIdentification} className="w-full bg-green-600 hover:bg-green-700">
+                  Identify Another Plant
+                </Button>
+                <Link href="/" className="w-full">
+                  <Button variant="outline" className="w-full">Back to Home</Button>
+                </Link>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <PlantDetailsDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        plant={selectedPlant}
+        selectedImage={selectedImage}
+      />
+    </>
+  )
+}
+
+// Plant Result Display Component (Desktop)
 interface PlantResultDisplayProps {
   selectedImage: string
   result: any
@@ -18,8 +279,8 @@ export function PlantResultDisplay({ selectedImage, result, onResetIdentificatio
   return (
     <div className="w-full px-2 sm:px-4">
       <Card className="border-0 shadow-2xl bg-white/90 backdrop-blur-sm overflow-hidden w-full max-w-6xl mx-auto">
-        <CardHeader className="bg-gradient-to-r from-green-600 to-emerald-600 text-white">
-          <CardTitle className="text-center text-3xl font-bold">🌿 Plant Identified!</CardTitle>
+        <CardHeader>
+            <CardTitle className="text-center text-3xl font-bold">🌿 Plant Identified!</CardTitle>
         </CardHeader>
         <CardContent className="p-4 sm:p-6 lg:p-8">
           <div className="mb-8">
@@ -27,8 +288,8 @@ export function PlantResultDisplay({ selectedImage, result, onResetIdentificatio
               <Image
                 src={selectedImage || "/placeholder.svg"}
                 alt="Identified plant"
-                width={600}
-                height={450}
+                width={400}
+                height={300}
                 className="rounded-2xl mx-auto object-cover shadow-lg group-hover:shadow-xl transition-shadow duration-300 max-w-full h-auto"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
