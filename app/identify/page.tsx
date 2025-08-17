@@ -8,19 +8,14 @@ import { Card, CardContent } from "@/components/ui/card"
 import { useCamera } from "@/hooks/use-camera"
 import { useMobileDetection } from "@/hooks/use-mobile-detection"
 import {
-  CameraStatusOverlay
+  CameraStatusOverlay,
+  CameraHeader,
+  CameraReadyIndicator,
+  CameraCaptureButton,
+  CameraErrorDisplay
 } from "@/components/camera"
-import { ApiError } from "@/components/api-error"
-import { ImagePreview } from "@/components/image-preview"
-import { LoadingSpinner } from "@/components/loading-spinner"
-import { PageHeader } from "@/components/page-header"
-import { UploadZone } from "@/components/upload-zone"
-import { CameraHeader } from "@/components/camera-header"
-import { CameraReadyIndicator } from "@/components/camera-ready-indicator"
-import { CameraCaptureButton } from "@/components/camera-capture-button"
-import { CameraErrorDisplay } from "@/components/camera-error-display"
-import { PlantResultsMobile } from "@/components/plant-results-mobile"
-import { PlantResultDisplay } from "@/components/plant-result-display"
+import { ApiError, LoadingSpinner, PageHeader, ImagePreview, UploadZone } from "@/components/shared"
+import { PlantResultsMobile, PlantResultDisplay } from "@/components/plant"
 
 export default function IdentifyPage() {
   const searchParams = useSearchParams()
@@ -65,25 +60,12 @@ export default function IdentifyPage() {
     }
   }, [mode])
 
-  const switchCamera = async () => {
-    const newFacingMode = currentFacingMode === "user" ? "environment" : "user"
-    console.log(`Switching camera from ${currentFacingMode} to ${newFacingMode}`)
-    await startCamera(newFacingMode)
-  }
-
   const retryCamera = () => {
     setRetryCount((prev) => prev + 1)
     cleanupCamera()
     setTimeout(() => {
       startCamera(currentFacingMode)
     }, 1000)
-  }
-
-  const forceVideoReady = () => {
-    console.log("Force video ready clicked")
-    if (videoRef.current && stream) {
-      // Camera hook handles this internally
-    }
   }
 
   const handleCapturePhoto = async () => {
@@ -173,45 +155,44 @@ export default function IdentifyPage() {
       <div className="min-h-screen bg-black flex flex-col">
         <CameraHeader onSwitchToUpload={switchToUpload} />
 
-        <div className="flex-1 relative">
-          <video
-            ref={videoRef}
-            autoPlay
-            playsInline
-            muted
-            className="w-full h-full object-cover"
-            style={{
-              backgroundColor: "#000",
-              minHeight: "400px",
-              transform: currentFacingMode === "user" ? "scaleX(-1)" : "none",
-            }}
-          />
-          <canvas ref={canvasRef} className="hidden" />
-
-          {!isVideoReady && (
-            <CameraStatusOverlay
-              cameraStatus={cameraStatus}
-              currentFacingMode={currentFacingMode}
-              retryCount={retryCount}
-              onRetryCamera={retryCamera}
-              onSwitchCamera={switchCamera}
-              onSwitchToUpload={switchToUpload}
-              onForceVideoReady={forceVideoReady}
+        <div className="flex-1 relative flex items-center justify-center">
+          <div className="relative w-full max-w-4xl mx-auto">
+            <video
+              ref={videoRef}
+              autoPlay
+              playsInline
+              muted
+              className="w-full h-auto max-h-[80vh] object-cover rounded-lg"
+              style={{
+                backgroundColor: "#000",
+                minHeight: "400px",
+                transform: currentFacingMode === "user" ? "scaleX(-1)" : "none",
+              }}
             />
-          )}
+            <canvas ref={canvasRef} className="hidden" />
 
-          {isVideoReady && <CameraCaptureButton isCapturing={isCapturing} onCapture={handleCapturePhoto} />}
+            {!isVideoReady && (
+              <CameraStatusOverlay
+                cameraStatus={cameraStatus}
+                currentFacingMode={currentFacingMode}
+                retryCount={retryCount}
+                onRetryCamera={retryCamera}
+                onSwitchToUpload={switchToUpload}
+              />
+            )}
 
-          {isVideoReady && <CameraReadyIndicator />}
+            {isVideoReady && <CameraCaptureButton isCapturing={isCapturing} onCapture={handleCapturePhoto} />}
 
-          {error && (
-            <CameraErrorDisplay
-              error={error}
-              onRetryCamera={retryCamera}
-              onSwitchCamera={switchCamera}
-              onSwitchToUpload={switchToUpload}
-            />
-          )}
+            {isVideoReady && <CameraReadyIndicator />}
+
+            {error && (
+              <CameraErrorDisplay
+                error={error}
+                onRetryCamera={retryCamera}
+                onSwitchToUpload={switchToUpload}
+              />
+            )}
+          </div>
         </div>
       </div>
     )

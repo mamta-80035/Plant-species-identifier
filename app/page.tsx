@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Camera, Upload, Sparkles, Zap, Shield, Users, ArrowRight, Play } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
-import { AnimatedCounter } from "@/components/animated-counter"
+import { AnimatedCounter } from "@/components/shared"
 
 export default function HomePage() {
   const [isVisible, setIsVisible] = useState(false)

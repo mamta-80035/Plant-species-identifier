@@ -11,9 +11,7 @@ interface CameraStatusOverlayProps {
   currentFacingMode: "user" | "environment"
   retryCount: number
   onRetryCamera: () => void
-  onSwitchCamera: () => void
   onSwitchToUpload: () => void
-  onForceVideoReady: () => void
 }
 
 export function CameraStatusOverlay({
@@ -21,9 +19,7 @@ export function CameraStatusOverlay({
   currentFacingMode,
   retryCount,
   onRetryCamera,
-  onSwitchCamera,
   onSwitchToUpload,
-  onForceVideoReady,
 }: CameraStatusOverlayProps) {
   const getStatusTitle = () => {
     switch (cameraStatus) {
@@ -86,9 +82,7 @@ export function CameraStatusOverlay({
 
         {cameraStatus !== "error" && (
           <div className="space-y-2">
-            <Button onClick={onForceVideoReady} variant="outline" className="text-white border-white bg-transparent">
-              Force Camera Ready
-            </Button>
+
             <Button onClick={onSwitchToUpload} variant="outline" className="text-white border-white bg-transparent">
               Switch to Upload Instead
             </Button>

@@ -5,7 +5,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
 
     // Get API key from environment variables
-    const apiKey = "wWp0XW1HI5bSGK41Awfd1LIkjZ9Nuwg2fp0fGiY6XXvLNDobdv"
+    const apiKey = "6ehFy4MQENz1XKKVwD7koOYOtAI8WEorTegr30PcjpXmtRLVLs"
 
 
     // Plant.id API endpoint - using v3

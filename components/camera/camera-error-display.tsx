@@ -5,14 +5,12 @@ import { Button } from "@/components/ui/button"
 interface CameraErrorDisplayProps {
   error: string
   onRetryCamera: () => void
-  onSwitchCamera: () => void
   onSwitchToUpload: () => void
 }
 
 export function CameraErrorDisplay({
   error,
   onRetryCamera,
-  onSwitchCamera,
   onSwitchToUpload,
 }: CameraErrorDisplayProps) {
   return (
