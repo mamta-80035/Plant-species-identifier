@@ -18,8 +18,8 @@ export function PlantResultDisplay({ selectedImage, result, onResetIdentificatio
   return (
     <div className="w-full px-2 sm:px-4">
       <Card className="border-0 shadow-2xl bg-white/90 backdrop-blur-sm overflow-hidden w-full max-w-6xl mx-auto">
-        <CardHeader className="bg-gradient-to-r from-green-600 to-emerald-600 text-white">
-          <CardTitle className="text-center text-3xl font-bold">🌿 Plant Identified!</CardTitle>
+        <CardHeader>
+            <CardTitle className="text-center text-3xl font-bold">🌿 Plant Identified!</CardTitle>
         </CardHeader>
         <CardContent className="p-4 sm:p-6 lg:p-8">
           <div className="mb-8">
@@ -27,8 +27,8 @@ export function PlantResultDisplay({ selectedImage, result, onResetIdentificatio
               <Image
                 src={selectedImage || "/placeholder.svg"}
                 alt="Identified plant"
-                width={600}
-                height={450}
+                width={400}
+                height={300}
                 className="rounded-2xl mx-auto object-cover shadow-lg group-hover:shadow-xl transition-shadow duration-300 max-w-full h-auto"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

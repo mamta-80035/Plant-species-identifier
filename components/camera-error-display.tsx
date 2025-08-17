@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button"
 
 interface CameraErrorDisplayProps {
   error: string
-  availableCameras: MediaDeviceInfo[]
   onRetryCamera: () => void
   onSwitchCamera: () => void
   onSwitchToUpload: () => void
@@ -12,7 +11,6 @@ interface CameraErrorDisplayProps {
 
 export function CameraErrorDisplay({
   error,
-  availableCameras,
   onRetryCamera,
   onSwitchCamera,
   onSwitchToUpload,
@@ -30,16 +28,6 @@ export function CameraErrorDisplay({
           >
             Try Again
           </Button>
-          {availableCameras.length > 1 && (
-            <Button
-              onClick={onSwitchCamera}
-              size="sm"
-              variant="outline"
-              className="text-white border-white bg-transparent"
-            >
-              Switch Camera
-            </Button>
-          )}
           <Button onClick={onSwitchToUpload} size="sm" className="bg-green-600 hover:bg-green-700">
             Upload Instead
           </Button>

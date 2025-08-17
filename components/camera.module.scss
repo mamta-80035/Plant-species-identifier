@@ -9,43 +9,6 @@ $green-600: #16a34a;
 $green-700: #15803d;
 $red-500: #ef4444;
 
-// Camera Controls
-.cameraControls {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-
-  .switchButton {
-    border-radius: 9999px;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: $white;
-    border-color: $white;
-
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.7);
-    }
-
-    &:disabled {
-      opacity: 0.5;
-    }
-  }
-}
-
-// Camera Info
-.cameraInfo {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-
-  .cameraInfoBadge {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: $white;
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-    font-size: 0.75rem;
-  }
-}
-
 // Status Overlay
 .statusOverlay {
   position: absolute;

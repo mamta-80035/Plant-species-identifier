@@ -8,18 +8,19 @@ import { Card, CardContent } from "@/components/ui/card"
 import { useCamera } from "@/hooks/use-camera"
 import { useMobileDetection } from "@/hooks/use-mobile-detection"
 import {
-  CameraDebugOverlay,
-  CameraControls,
-  CameraInfo,
-  CameraStatusOverlay,
-  CameraCaptureButton,
-  CameraReadyIndicator,
-  CameraErrorDisplay,
+  CameraStatusOverlay
 } from "@/components/camera"
-
-import { LoadingSpinner, UploadZone, ImagePreview, CameraHeader, PageHeader, ApiError } from "@/components/ui"
-
-import { PlantResultsMobile, PlantResultDisplay } from "@/components/plant-results"
+import { ApiError } from "@/components/api-error"
+import { ImagePreview } from "@/components/image-preview"
+import { LoadingSpinner } from "@/components/loading-spinner"
+import { PageHeader } from "@/components/page-header"
+import { UploadZone } from "@/components/upload-zone"
+import { CameraHeader } from "@/components/camera-header"
+import { CameraReadyIndicator } from "@/components/camera-ready-indicator"
+import { CameraCaptureButton } from "@/components/camera-capture-button"
+import { CameraErrorDisplay } from "@/components/camera-error-display"
+import { PlantResultsMobile } from "@/components/plant-results-mobile"
+import { PlantResultDisplay } from "@/components/plant-result-display"
 
 export default function IdentifyPage() {
   const searchParams = useSearchParams()
@@ -43,7 +44,6 @@ export default function IdentifyPage() {
     isVideoReady,
     cameraStatus,
     currentFacingMode,
-    availableCameras,
     getAvailableCameras,
     cleanupCamera,
     startCamera,
@@ -188,27 +188,10 @@ export default function IdentifyPage() {
           />
           <canvas ref={canvasRef} className="hidden" />
 
-          <CameraDebugOverlay
-            videoRef={videoRef}
-            stream={stream}
-            isVideoReady={isVideoReady}
-            cameraStatus={cameraStatus}
-          />
-
-          <CameraControls
-            availableCameras={availableCameras}
-            currentFacingMode={currentFacingMode}
-            onSwitchCamera={switchCamera}
-            cameraStatus={cameraStatus}
-          />
-
-          <CameraInfo currentFacingMode={currentFacingMode} isVideoReady={isVideoReady} cameraStatus={cameraStatus} />
-
           {!isVideoReady && (
             <CameraStatusOverlay
               cameraStatus={cameraStatus}
               currentFacingMode={currentFacingMode}
-              availableCameras={availableCameras}
               retryCount={retryCount}
               onRetryCamera={retryCamera}
               onSwitchCamera={switchCamera}
@@ -224,7 +207,6 @@ export default function IdentifyPage() {
           {error && (
             <CameraErrorDisplay
               error={error}
-              availableCameras={availableCameras}
               onRetryCamera={retryCamera}
               onSwitchCamera={switchCamera}
               onSwitchToUpload={switchToUpload}

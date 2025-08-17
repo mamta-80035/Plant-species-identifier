@@ -28,7 +28,7 @@ export function PlantResultsMobile({ selectedImage, result, onResetIdentificatio
       <div className="w-full">
         <Card className="mx-4 md:mx-auto md:max-w-2xl border-0 shadow-xl bg-white/90 backdrop-blur-sm">
           <CardHeader>
-            <CardTitle className="text-center">Plant Identified!</CardTitle>
+              <CardTitle className="text-center text-xl font-bold">🌿 Plant Identified!</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="mb-6">
@@ -82,12 +82,14 @@ export function PlantResultsMobile({ selectedImage, result, onResetIdentificatio
             )}
 
             <div className="text-center pt-6 border-t">
-              <Button onClick={onResetIdentification} className="mr-4 bg-green-600 hover:bg-green-700">
-                Identify Another Plant
-              </Button>
-              <Link href="/">
-                <Button variant="outline">Back to Home</Button>
-              </Link>
+              <div className="flex flex-col gap-3">
+                <Button onClick={onResetIdentification} className="w-full bg-green-600 hover:bg-green-700">
+                  Identify Another Plant
+                </Button>
+                <Link href="/" className="w-full">
+                  <Button variant="outline" className="w-full">Back to Home</Button>
+                </Link>
+              </div>
             </div>
           </CardContent>
         </Card>

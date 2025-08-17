@@ -27,7 +27,6 @@ export function UploadZone({ onFileSelect }: UploadZoneProps) {
       onDrop={(e) => {
         e.preventDefault()
         setIsDragOver(false)
-        // Handle file drop
       }}
     >
       <div className="space-y-6">
