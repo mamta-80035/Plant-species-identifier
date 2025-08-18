@@ -11,8 +11,6 @@ export function Footer(): React.ReactElement {
           <span className="hidden sm:inline">All rights reserved.</span>
         </div>
         <nav className="flex items-center gap-3">
-          <Link href="/" className="hover:text-foreground">Home</Link>
-          <span className="opacity-50">|</span>
           <Link href="/identify?mode=upload" className="hover:text-foreground">Identify</Link>
           <span className="opacity-50">|</span>
           <Link href="/about" className="hover:text-foreground">About</Link>

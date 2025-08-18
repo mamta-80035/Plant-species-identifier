@@ -9,11 +9,10 @@ import { useCamera } from "@/hooks/use-camera"
 import { useMobileDetection } from "@/hooks/use-mobile-detection"
 import {
   CameraStatusOverlay,
-  CameraHeader,
   CameraCaptureButton,
   CameraErrorDisplay
 } from "@/components/camera"
-import { ApiError, LoadingSpinner, PageHeader, ImagePreview, UploadZone } from "@/components/shared"
+import { ApiError, LoadingSpinner, ImagePreview, UploadZone } from "@/components/shared"
 import { PlantResultsMobile, PlantResultDisplay } from "@/components/plant"
 
 export default function IdentifyPage() {
@@ -150,7 +149,6 @@ export default function IdentifyPage() {
   if (showCamera && mode === "camera") {
     return (
       <div className="min-h-screen bg-black flex flex-col">
-        <CameraHeader onSwitchToUpload={switchToUpload} />
 
         <div className="flex-1 relative flex items-center justify-center">
           <div className="relative w-full max-w-4xl mx-auto">
@@ -194,11 +192,6 @@ export default function IdentifyPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50">
-      <PageHeader
-        title={mode === "camera" ? "Camera Capture" : "Upload Image"}
-        subtitle="Identify any plant species with AI-powered recognition"
-      />
-
       <div className="w-full py-8">
         <div className="w-full px-4">
           {!selectedImage && mode === "upload" && (
