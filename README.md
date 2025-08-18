@@ -30,14 +30,12 @@ AI-powered plant identification app built with Next.js 14 (App Router), React 18
   - `camera-status-overlay.tsx`: Status UI while camera initializes.
   - `camera-error-display.tsx`: Error UI with retry/switch.
   - `camera-capture-button.tsx`: Floating capture button.
-  - `camera.module.scss`: Styles scoped to camera components.
 - **Plant (`components/plant`)**
   - `plant-result-display.tsx`: Desktop results layout.
   - `plant-results-mobile.tsx`: Mobile-first results (drawer-centric).
   - `plant-details-drawer.tsx`: Drawer for detailed plant info.
-  - `plant-results.module.scss`: Styles for result views.
 - **Shared (`components/shared`)**
-  - `animated-counter.tsx`, `api-error.tsx`, `footer.tsx`, `image-preview.tsx`, `loading-spinner.tsx`, `site-header.tsx`, `upload-zone.tsx`, `ui.module.scss`.
+  - `animated-counter.tsx`, `api-error.tsx`, `footer.tsx`, `image-preview.tsx`, `loading-spinner.tsx`, `site-header.tsx`, `upload-zone.tsx`.
 - **UI (`components/ui`)**
   - shadcn/ui primitives: `alert.tsx`, `badge.tsx`, `button.tsx`, `card.tsx`, `separator.tsx`.
 
@@ -47,7 +45,6 @@ AI-powered plant identification app built with Next.js 14 (App Router), React 18
 
 ### Styling
 - Global Tailwind via `app/globals.css` (configured in `components.json`).
-- Local SCSS modules: `app/page.module.scss`, `components/*/*.module.scss`.
 
 ### Config
 - **`next.config.mjs`**: Ignores type/lint errors during build; `images.unoptimized` enabled.
@@ -60,11 +57,6 @@ AI-powered plant identification app built with Next.js 14 (App Router), React 18
 - Location fields (`latitude`, `longitude`) currently static.
 - The API key is presently hardcoded in `app/api/identify-plant/route.ts` — move to an environment variable and read via `process.env`.
 
-Example env (add to `.env.local`, then update the route to use it):
-```env
-PLANT_ID_API_KEY=your_plant_id_key
-```
-
 ### Scripts and dependencies
 - Scripts in `package.json`: `dev`, `build`, `start`, `lint`.
 - Key deps: `next@14`, `react@18`, `lucide-react`, `vaul`, `class-variance-authority`, `tailwindcss@4`, `tailwind-merge`, `tailwindcss-animate`.
@@ -74,7 +66,6 @@ PLANT_ID_API_KEY=your_plant_id_key
 - Mobile/desktop result rendering automatically switches via `use-mobile-detection`.
 
 ### Potential follow-ups
-- Replace hardcoded API key with `process.env.PLANT_ID_API_KEY` and add validation.
 - Consider image size/quality limits before POSTing to reduce payload size.
 - Optional: surface Plant.id confidence and similar images in UI if available.
 
