@@ -10,7 +10,9 @@ export const metadata: Metadata = {
   title: "Plant Species Identifier - AI-Powered Plant Recognition",
   description:
     "Identify any plant species instantly using advanced AI technology. Discover detailed information about plants with just a photo.",
-    generator: 'v0.app'
+  icons: {
+    icon: "/plant-logo.png",
+  }
 }
 
 export default function RootLayout({
