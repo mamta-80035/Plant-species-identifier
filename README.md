@@ -57,6 +57,11 @@ AI-powered plant identification app built with Next.js 14 (App Router), React 18
 - Location fields (`latitude`, `longitude`) currently static.
 - The API key is presently hardcoded in `app/api/identify-plant/route.ts` — move to an environment variable and read via `process.env`.
 
+Example env (add to `.env.local`, then update the route to use it):
+```env
+PLANT_ID_API_KEY=your_plant_id_key
+```
+
 ### Scripts and dependencies
 - Scripts in `package.json`: `dev`, `build`, `start`, `lint`.
 - Key deps: `next@14`, `react@18`, `lucide-react`, `vaul`, `class-variance-authority`, `tailwindcss@4`, `tailwind-merge`, `tailwindcss-animate`.
