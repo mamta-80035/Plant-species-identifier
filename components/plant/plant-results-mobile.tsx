@@ -60,7 +60,20 @@ export function PlantResultsMobile({ selectedImage, result, onResetIdentificatio
                     className="border rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition-colors"
                     onClick={() => handlePlantSelect(suggestion)}
                   >
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      {/* Plant Image */}
+                      {suggestion.similar_images && suggestion.similar_images.length > 0 && (
+                        <div className="flex-shrink-0">
+                          <Image
+                            src={suggestion.similar_images[0].url || "/placeholder.svg"}
+                            alt={suggestion.name}
+                            width={60}
+                            height={60}
+                            className="rounded-lg object-cover w-15 h-15"
+                          />
+                        </div>
+                      )}
+                      
                       <div className="flex-1">
                         <h4 className="font-semibold text-gray-800">{suggestion.name}</h4>
                         {suggestion.details?.common_names && suggestion.details.common_names.length > 0 && (

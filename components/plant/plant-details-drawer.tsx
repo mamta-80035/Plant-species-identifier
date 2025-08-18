@@ -19,9 +19,9 @@ export function PlantDetailsDrawer({ isOpen, onClose, plant, selectedImage }: Pl
     <Drawer.Root open={isOpen} onOpenChange={onClose}>
       <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 bg-black/40" />
-        <Drawer.Content className="bg-white flex flex-col rounded-t-[10px] h-[85%] mt-24 fixed bottom-0 left-0 right-0">
+        <Drawer.Content className="bg-white flex flex-col rounded-t-[10px] h-[90%] mt-24 fixed bottom-0 left-0 right-0">
           <div className="p-4 bg-white rounded-t-[10px] flex-1 overflow-auto">
-            <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-gray-300 mb-8" />
+            <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-gray-300 mb-6" />
 
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
@@ -61,7 +61,7 @@ export function PlantDetailsDrawer({ isOpen, onClose, plant, selectedImage }: Pl
               {/* Taxonomy */}
               {plant.details?.taxonomy && (
                 <div className="bg-gray-50 p-4 rounded-lg">
-                  <h4 className="font-semibold mb-3">Scientific Classification</h4>
+                  <h4 className="font-semibold mb-3">🔬 Scientific Classification</h4>
                   <div className="grid grid-cols-2 gap-3 text-sm">
                     <div>
                       <strong>Kingdom:</strong> {plant.details.taxonomy.kingdom}
@@ -82,34 +82,51 @@ export function PlantDetailsDrawer({ isOpen, onClose, plant, selectedImage }: Pl
               {/* Description */}
               {plant.details?.description?.value && (
                 <div>
-                  <h4 className="font-semibold mb-3">Description</h4>
-                  <p className="text-gray-700 text-sm leading-relaxed">{plant.details.description.value}</p>
+                  <h4 className="font-semibold mb-3">📖 Description</h4>
+                  <p className="text-gray-700 text-sm leading-relaxed bg-white p-3 rounded-lg shadow-sm">
+                    {plant.details.description.value}
+                  </p>
                 </div>
               )}
 
               {/* Care Information Grid */}
               <div className="grid grid-cols-1 gap-4">
                 {plant.details?.best_watering && (
-                  <div className="bg-blue-50 p-4 rounded-lg">
-                    <h4 className="font-semibold mb-2 text-blue-800">💧 Watering</h4>
+                  <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+                    <h4 className="font-semibold mb-2 text-blue-800">💧 Watering Requirements</h4>
                     <p className="text-sm text-blue-700">{plant.details.best_watering}</p>
                   </div>
                 )}
 
                 {plant.details?.best_light_condition && (
-                  <div className="bg-yellow-50 p-4 rounded-lg">
+                  <div className="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
                     <h4 className="font-semibold mb-2 text-yellow-800">☀️ Light Requirements</h4>
                     <p className="text-sm text-yellow-700">{plant.details.best_light_condition}</p>
                   </div>
                 )}
 
                 {plant.details?.best_soil_type && (
-                  <div className="bg-amber-50 p-4 rounded-lg">
+                  <div className="bg-amber-50 p-4 rounded-lg border-l-4 border-amber-400">
                     <h4 className="font-semibold mb-2 text-amber-800">🌱 Soil Requirements</h4>
                     <p className="text-sm text-amber-700">{plant.details.best_soil_type}</p>
                   </div>
                 )}
+
+                {plant.details?.common_uses && (
+                  <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-400">
+                    <h4 className="font-semibold mb-2 text-green-800">🔧 Common Uses</h4>
+                    <p className="text-sm text-green-700">{plant.details.common_uses}</p>
+                  </div>
+                )}
               </div>
+
+              {/* Cultural Significance */}
+              {plant.details?.cultural_significance && (
+                <div className="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-400">
+                  <h4 className="font-semibold mb-2 text-purple-800">🏛️ Cultural Significance</h4>
+                  <p className="text-sm text-purple-700 leading-relaxed">{plant.details.cultural_significance}</p>
+                </div>
+              )}
 
               {/* Edible Parts */}
               {plant.details?.edible_parts && plant.details.edible_parts.length > 0 && (
@@ -133,6 +150,29 @@ export function PlantDetailsDrawer({ isOpen, onClose, plant, selectedImage }: Pl
                 </div>
               )}
 
+              {/* Similar Images */}
+              {plant.similar_images && plant.similar_images.length > 0 && (
+                <div>
+                  <h4 className="font-semibold mb-3">📸 Similar Images</h4>
+                  <div className="grid grid-cols-3 gap-3">
+                    {plant.similar_images.slice(0, 6).map((similarImage: any, imgIndex: number) => (
+                      <div key={imgIndex} className="relative rounded-lg overflow-hidden shadow-md">
+                        <Image
+                          src={similarImage.url || "/placeholder.svg"}
+                          alt={`Similar plant ${imgIndex + 1}`}
+                          width={120}
+                          height={90}
+                          className="w-full h-24 object-cover"
+                        />
+                        <div className="absolute bottom-1 right-1 bg-black/75 text-white px-2 py-1 rounded text-xs font-medium">
+                          {Math.round(similarImage.similarity * 100)}%
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* External Links */}
               <div className="flex flex-wrap gap-3 pt-4">
                 {plant.details?.url && (
@@ -153,6 +193,16 @@ export function PlantDetailsDrawer({ isOpen, onClose, plant, selectedImage }: Pl
                     className="inline-flex items-center text-red-600 hover:text-red-800 text-sm bg-red-50 px-4 py-2 rounded-lg hover:bg-red-100 transition-colors"
                   >
                     🔬 GBIF Database
+                  </a>
+                )}
+                {plant.details?.inaturalist_id && (
+                  <a
+                    href={`https://www.inaturalist.org/taxa/${plant.details.inaturalist_id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-green-600 hover:text-green-800 text-sm bg-green-50 px-4 py-2 rounded-lg hover:bg-green-100 transition-colors"
+                  >
+                    🌿 iNaturalist
                   </a>
                 )}
               </div>

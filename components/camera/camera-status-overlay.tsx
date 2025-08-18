@@ -1,15 +1,13 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { RotateCcw, Loader2, Camera, RefreshCw } from "lucide-react"
+import { Loader2, RefreshCw } from "lucide-react"
 
 // Camera Status Overlay Component
 interface CameraStatusOverlayProps {
   cameraStatus: string
   currentFacingMode: "user" | "environment"
-  retryCount: number
   onRetryCamera: () => void
   onSwitchToUpload: () => void
 }
@@ -17,7 +15,6 @@ interface CameraStatusOverlayProps {
 export function CameraStatusOverlay({
   cameraStatus,
   currentFacingMode,
-  retryCount,
   onRetryCamera,
   onSwitchToUpload,
 }: CameraStatusOverlayProps) {
@@ -69,12 +66,12 @@ export function CameraStatusOverlay({
         <p className="text-sm text-gray-300 mb-4">{getStatusDescription()}</p>
 
         {cameraStatus === "error" && (
-          <div className="space-y-3">
-            <Button onClick={onRetryCamera} variant="outline" className="text-white border-white bg-transparent">
+          <div className="flex flex-col space-y-3 w-full">
+            <Button onClick={onRetryCamera} variant="outline" className="text-white border-white bg-transparent w-full">
               <RefreshCw className="h-4 w-4 mr-2" />
-              Retry Camera {retryCount > 0 && `(${retryCount})`}
+              Retry Camera
             </Button>
-            <Button onClick={onSwitchToUpload} className="bg-green-600 hover:bg-green-700">
+            <Button onClick={onSwitchToUpload} className="bg-green-600 hover:bg-green-700 w-full">
               Switch to Upload
             </Button>
           </div>

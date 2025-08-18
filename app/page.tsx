@@ -59,7 +59,7 @@ export default function HomePage() {
               <p className="text-gray-600 mt-2">Accuracy Rate</p>
             </div>
             <div className="text-center p-6 bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-              <AnimatedCounter end={1000000} suffix="+" />
+              <AnimatedCounter end={1000} suffix="+" />
               <p className="text-gray-600 mt-2">Plants Identified</p>
             </div>
             <div className="text-center p-6 bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">

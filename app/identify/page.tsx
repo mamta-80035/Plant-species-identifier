@@ -10,7 +10,6 @@ import { useMobileDetection } from "@/hooks/use-mobile-detection"
 import {
   CameraStatusOverlay,
   CameraHeader,
-  CameraReadyIndicator,
   CameraCaptureButton,
   CameraErrorDisplay
 } from "@/components/camera"
@@ -28,7 +27,6 @@ export default function IdentifyPage() {
   const [error, setError] = useState<string | null>(null)
   const [showCamera, setShowCamera] = useState(false)
   const [isCapturing, setIsCapturing] = useState(false)
-  const [retryCount, setRetryCount] = useState(0)
 
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -61,7 +59,6 @@ export default function IdentifyPage() {
   }, [mode])
 
   const retryCamera = () => {
-    setRetryCount((prev) => prev + 1)
     cleanupCamera()
     setTimeout(() => {
       startCamera(currentFacingMode)
@@ -175,15 +172,12 @@ export default function IdentifyPage() {
               <CameraStatusOverlay
                 cameraStatus={cameraStatus}
                 currentFacingMode={currentFacingMode}
-                retryCount={retryCount}
                 onRetryCamera={retryCamera}
                 onSwitchToUpload={switchToUpload}
               />
             )}
 
             {isVideoReady && <CameraCaptureButton isCapturing={isCapturing} onCapture={handleCapturePhoto} />}
-
-            {isVideoReady && <CameraReadyIndicator />}
 
             {error && (
               <CameraErrorDisplay
