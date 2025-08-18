@@ -19,7 +19,7 @@ export function ImagePreview({ selectedImage, isLoading, onIdentify, onReset }: 
 
         <div className="relative mb-6 group">
           <Image
-            src={selectedImage || "/placeholder.svg"}
+            src={selectedImage || "/plant-logo.png"}
             alt="Selected plant"
             width={500}
             height={400}

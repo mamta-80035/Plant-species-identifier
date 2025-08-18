@@ -25,7 +25,7 @@ export function PlantResultDisplay({ selectedImage, result, onResetIdentificatio
           <div className="mb-8">
             <div className="relative group">
               <Image
-                src={selectedImage || "/placeholder.svg"}
+                src={selectedImage || "/plant-logo.png"}
                 alt="Identified plant"
                 width={400}
                 height={300}
@@ -186,7 +186,7 @@ export function PlantResultDisplay({ selectedImage, result, onResetIdentificatio
                         {suggestion.similar_images.slice(0, 6).map((similarImage: any, imgIndex: number) => (
                           <div key={imgIndex} className="relative rounded-xl overflow-hidden shadow-lg group">
                             <Image
-                              src={similarImage.url || "/placeholder.svg"}
+                              src={similarImage.url || "/plant-logo.png"}
                               alt={`Similar plant ${imgIndex + 1}`}
                               width={200}
                               height={150}

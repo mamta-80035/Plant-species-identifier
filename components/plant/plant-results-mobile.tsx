@@ -33,7 +33,7 @@ export function PlantResultsMobile({ selectedImage, result, onResetIdentificatio
           <CardContent>
             <div className="mb-6">
               <Image
-                src={selectedImage || "/placeholder.svg"}
+                src={selectedImage || "/plant-logo.png"}
                 alt="Identified plant"
                 width={400}
                 height={300}
@@ -65,7 +65,7 @@ export function PlantResultsMobile({ selectedImage, result, onResetIdentificatio
                       {suggestion.similar_images && suggestion.similar_images.length > 0 && (
                         <div className="flex-shrink-0">
                           <Image
-                            src={suggestion.similar_images[0].url || "/placeholder.svg"}
+                            src={suggestion.similar_images[0].url || "/plant-logo.png"}
                             alt={suggestion.name}
                             width={60}
                             height={60}

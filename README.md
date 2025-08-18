@@ -30,7 +30,6 @@ AI-powered plant identification app built with Next.js 14 (App Router), React 18
   - `camera-status-overlay.tsx`: Status UI while camera initializes.
   - `camera-error-display.tsx`: Error UI with retry/switch.
   - `camera-capture-button.tsx`: Floating capture button.
-  - `camera-ready-indicator.tsx`: Optional ready indicator.
   - `camera.module.scss`: Styles scoped to camera components.
 - **Plant (`components/plant`)**
   - `plant-result-display.tsx`: Desktop results layout.

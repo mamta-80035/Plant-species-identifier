@@ -5,7 +5,16 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
 
     // Get API key from environment variables
-    const apiKey = "6ehFy4MQENz1XKKVwD7koOYOtAI8WEorTegr30PcjpXmtRLVLs"
+    const apiKey = process.env.PLANT_ID_API_KEY
+
+    if (!apiKey) {
+      return NextResponse.json(
+        {
+          error: "Missing Plant.id API key. Set PLANT_ID_API_KEY in your environment.",
+        },
+        { status: 500 },
+      )
+    }
 
 
     // Plant.id API endpoint - using v3

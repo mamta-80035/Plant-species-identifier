@@ -41,7 +41,7 @@ export function PlantDetailsDrawer({ isOpen, onClose, plant, selectedImage }: Pl
             {/* Plant Image */}
             <div className="mb-6">
               <Image
-                src={selectedImage || "/placeholder.svg"}
+                src={selectedImage || "/plant-logo.png"}
                 alt={plant.name}
                 width={400}
                 height={300}
@@ -158,7 +158,7 @@ export function PlantDetailsDrawer({ isOpen, onClose, plant, selectedImage }: Pl
                     {plant.similar_images.slice(0, 6).map((similarImage: any, imgIndex: number) => (
                       <div key={imgIndex} className="relative rounded-lg overflow-hidden shadow-md">
                         <Image
-                          src={similarImage.url || "/placeholder.svg"}
+                          src={similarImage.url || "/plant-logo.png"}
                           alt={`Similar plant ${imgIndex + 1}`}
                           width={120}
                           height={90}
