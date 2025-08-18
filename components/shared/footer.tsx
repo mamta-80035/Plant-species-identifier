@@ -15,7 +15,7 @@ export function Footer(): React.ReactElement {
           <span className="opacity-50">|</span>
           <Link href="/about" className="hover:text-foreground">About</Link>
           <span className="opacity-50">|</span>
-          <Link href="/privacy" className="hover:text-foreground">Privacy Policy</Link>
+          <Link href="/privacy" className="hover:text-foreground">Privacy</Link>
           <span className="opacity-50">|</span>
           <Link href="/contact" className="hover:text-foreground">Contact</Link>
         </nav>

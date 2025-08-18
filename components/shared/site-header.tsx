@@ -13,24 +13,23 @@ export function SiteHeader(): React.ReactElement {
   const closeMobileMenu = () => setIsMobileMenuOpen(false)
 
   return (
-    <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-sm border-b">
+    <header className="sticky top-0 z-40 bg-white backdrop-blur-sm border-b">
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         {/* Brand */}
         <Link href="/" onClick={closeMobileMenu} className="flex items-center gap-3">
           <Image
             src="/plant-logo.png"
             alt="Plant Species Identifier"
-            width={32}
-            height={32}
+            width={40}
+            height={40}
             className="rounded-sm"
             priority
           />
-          <span className="font-semibold text-gray-800">Plant Species Identifier</span>
+          <span className="font-semibold text-green-800">Plant Species Identifier</span>
         </Link>
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-6 text-sm">
-          <Link href="/" className="text-gray-600 hover:text-gray-900">Home</Link>
           <Link href="/identify?mode=upload" className="text-gray-600 hover:text-gray-900">Identify</Link>
           <Link href="/about" className="text-gray-600 hover:text-gray-900">About</Link>
           <Link href="/privacy" className="text-gray-600 hover:text-gray-900">Privacy</Link>
