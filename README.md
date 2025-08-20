@@ -69,9 +69,3 @@ PLANT_ID_API_KEY=your_plant_id_key
 ### Notable behaviors
 - Camera constraints progressively fall back across several configurations; prefers environment/back camera on mobile when available.
 - Mobile/desktop result rendering automatically switches via `use-mobile-detection`.
-
-### Potential follow-ups
-- Consider image size/quality limits before POSTing to reduce payload size.
-- Optional: surface Plant.id confidence and similar images in UI if available.
-
-
